@@ -55,20 +55,14 @@ int main(int argc, char const *argv[])
     }
 
     if(fork() == 0){
-        //printf("Child: The real user ID is %d\n", getuid());
+	//Set uid to nobody user
         setuid(id);
-        //printf("Child: The real user ID after setting setuid is %d\n", getuid());
+	printf("Child: The real user ID after setting setuid is %d\n", getuid());
+	//Grab the socket and send it as argument to exec
         char pipe_readend[12];
         sprintf(pipe_readend, "%i", new_socket);
         char * argv_list[] = {"./server2", pipe_readend, NULL}; 
         execvp("./server2", argv_list);
-       
-
-
-       /*valread = read( new_socket , buffer, 1024); 
-        printf("%s\n",buffer ); 
-        send(new_socket , hello , strlen(hello) , 0 ); 
-        printf("Hello message sent\n"); */
     }else{
         wait(NULL);
         printf("Parent: The real user ID is %d\n", getuid());
