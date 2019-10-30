@@ -56,12 +56,15 @@ int main(int argc, char const *argv[])
 
     if(fork() == 0){
         printf("Child: The real user ID is %d\n", getuid());
-        setuid(id);
-        printf("Child: The real user ID after setting setuid is %d\n", getuid());
-        valread = read( new_socket , buffer, 1024); 
-        printf("%s\n",buffer ); 
-        send(new_socket , hello , strlen(hello) , 0 ); 
-        printf("Hello message sent\n"); 
+        if(setuid(id)==0){
+            printf("Child: The real user ID after setting setuid is %d\n", getuid());
+            valread = read( new_socket , buffer, 1024); 
+            printf("%s\n",buffer ); 
+            send(new_socket , hello , strlen(hello) , 0 ); 
+            printf("Hello message sent\n");
+        }else{
+            perror("setuid failed");
+        } 
     }else{
         wait(NULL);
         printf("Parent: The real user ID is %d\n", getuid());
