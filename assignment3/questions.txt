@@ -1,0 +1,4 @@
+1. The file could still be open as long as you open a file descriptor for that file before you do chroot.
+2. We created an argv list to pass into execvp where the first argument is the server2 object file name, then the socket file descriptor, and finally the open file descriptor.
+3. If the file size of the disk file execeedes the size of the client's hardcoded buffer, an overflow buffer could
+occur and an attacker can use this as an advantage to do ROP. No the client does not have sufficient checks to ensure the no buffer over run occur.
