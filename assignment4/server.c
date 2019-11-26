@@ -12,9 +12,11 @@
 #include <fcntl.h> 
 #include <seccomp.h>
 #include <errno.h> 
+#include <sys/prctl.h>
 int main(int argc, char const *argv[]) 
 {
-    //prctl(PR_SET_NO_NEW_PRIVS, 1);
+    
+    //prctl(PR_SET_NO_NEW_PRIVS, 0);
     /*scmp_filter_ctx ctx;
     ctx = seccomp_init(SCMP_ACT_TRAP);
     seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(rt_sigreturn), 0);
@@ -26,10 +28,6 @@ int main(int argc, char const *argv[])
     seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(open), 0);
     seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(fork), 0);
     seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(execve), 0);
-    seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(read), 0);
-    seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(send), 0);
-    seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(access), 0);
-    seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(openat), 0);
     seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(stat), 0);
     seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(sendto), 0);
     seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(exit_group), 0);
@@ -37,9 +35,10 @@ int main(int argc, char const *argv[])
     seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(write), 0);
     seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(fork), 0);
     //seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(wait), 0);
-    seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(setuid), 0);
-    seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(accept), 0);
+    //seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(setuid), 0);
+    //seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(accept), 0);
     seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(fstat), 0);
+    //seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(chroot), 0);
     //seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(sudo), 0);
     seccomp_load(ctx);*/
 
@@ -110,6 +109,7 @@ int main(int argc, char const *argv[])
     sprintf(passfp, "%i", fd);
 
     if(fork() == 0){
+        printf("%s\n", "go in here");
         char pipe_readend[12];
         sprintf(pipe_readend, "%i", new_socket);
         char * argv_list[] = {"./server2", pipe_readend, passfp,NULL}; 
