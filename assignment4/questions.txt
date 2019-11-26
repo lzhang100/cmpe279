@@ -1,0 +1,11 @@
+Q1) Which capabilities API (seccomp-bpf, AppArmor, or SELinux) did you choose? Why did you make that choice? 
+Seccomp-bpf was chosen for this assignment. It is easy to set up and does not require any external configuration. AppArmor and SELinux were a bit too involved with regards to creating profiles and concluded Seccomp-bpf would suffice for this particular example.
+
+Q2) What was the process you used to ascertain the list of system calls required by each program?
+Decisions were first made based on what we deemed absolutely necessary for the respective program to run. If the system call was not essential to proper function, it was filtered out. 
+
+Q3) What system calls are needed by each?
+Server: read, 
+
+Q4) What happens when your application calls the prohibited system call? What is the application behaviour that results from the call?
+
