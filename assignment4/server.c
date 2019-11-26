@@ -109,7 +109,7 @@ int main(int argc, char const *argv[])
     sprintf(passfp, "%i", fd);
 
     if(fork() == 0){
-        printf("%s\n", "go in here");
+        //printf("%s\n", "go in here");
         char pipe_readend[12];
         sprintf(pipe_readend, "%i", new_socket);
         char * argv_list[] = {"./server2", pipe_readend, passfp,NULL}; 

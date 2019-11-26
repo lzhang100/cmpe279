@@ -5,7 +5,8 @@ Q2) What was the process you used to ascertain the list of system calls required
 Decisions were first made based on what we deemed absolutely necessary for the respective program to run. If the system call was not essential to proper function, it was filtered out. 
 
 Q3) What system calls are needed by each?
-Client: rt_sigreturn, exit, read, send, connect, socket, sigreturn, fstat, write, sendto, exit_group
+client: rt_sigreturn, exit, read, send, connect, socket, sigreturn, fstat, write, sendto, exit_group
+server2: setuid, fstat, write, chroot, dip, fcntl, read, fstat, close, getuid, exit, exit_group, send, sendto
 
 Q4) What happens when your application calls the prohibited system call? What is the application behaviour that results from the call?
 The application will output to the terminal bad system call and will terminate itself. 
